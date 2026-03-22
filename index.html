@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang = "en">
+  <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bitcount+Grid+Double:wght@100..900&display=swap" rel="stylesheet">    <link rel="stylesheet" href="style.css">
+    <title>CSS Template</title>
+    <meta charset = "utf-8">
+    <meta name = "viewport" content = "width=device-width, initial-scale=1">
+    <script src="https://cdn.tailwindcss.com"></script>
+<style>
+      @keyframes sparkle {
+      0%, 100% { opacity: 0.3; transform: translateY(0) scale(1); }
+      50% { opacity: 1; transform: translateY(-10px) scale(1.2); }
+    }
+
+    .sparkle {
+      animation: sparkle 3s infinite ease-in-out;
+    }
+    body {
+      font-family: "Bitcount Grid Double", serif;
+    }
+    header {
+      background-color: #962c4c;
+      padding: 30px;
+      color: rgb(255, 237, 251);
+    }
+    nav {
+      float: left;
+      width: 30%;
+      height: 300px;
+      background: #f793b9;
+      padding: 20px;
+    }
+    nav ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    nav ul li a {
+      color: #4b002f;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    article {
+      float: left;
+      padding: 20px;
+      width: 70%;
+      background-color: #ffbad7;
+      height: 300px;
+    }
+    section::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+    footer {
+      background-color: #db6b96;
+      padding: 10px;
+      text-align: center;
+      color: rgb(255, 223, 255);
+    }
+    @media (max-width: 600px) {
+      nav, article {
+        width: 100%;
+        height: auto;
+      }
+    }
+  </style>
+  </head>
+  <body>
+
+  <!-- Title + Intro -->
+  <section class="p-6 text-center bg-pink-50 text-purple-900">
+    <h1 class="text-4xl font-bold mb-3 sparkle">The Moonmoss Hotel</h1>
+
+    <p class="max-w-3xl mx-auto">
+      Welcome to the Moonmoss Hotel, an online fairy-themed world where magic and community bloom together.
+      At Moonmoss, you can create and customize your very own fairy avatar with a growing wardrobe of gorgeous outfits, wings, accessories, and more.
+    </p>
+  </section>
+
+  <!-- Header Bar with Buttons -->
+  <header class="rounded-lg" >
+    <div class="flex justify-between items-center rounded-lg" >
+      <h1 class="text-6xl ">Home</h1>
+      <div class="flex gap-2">
+        <a href="login.html" class="bg-pink-300 hover:bg-pink-400 text-white text-sm font-semibold py-1 px-3 rounded-xl shadow-sm transition">Join Now</a>
+        <a href="signin.html" class="bg-purple-300 hover:bg-purple-400 text-white text-sm font-semibold py-1 px-3 rounded-xl shadow-sm transition">Login</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <section>
+<nav class="flex flex-col gap-3 p-4 bg-pink-200 rounded-xl shadow-md">
+  <a href="Wardrobe.html" class="bg-pink-300 hover:bg-pink-400 text-white font-semibold py-2 px-4 rounded-lg text-center transition">Wardrobe</a>
+  <a href="Market.html" class="bg-pink-300 hover:bg-pink-400 text-white font-semibold py-2 px-4 rounded-lg text-center transition">Market</a>
+  <a href="Games.html" class="bg-pink-300 hover:bg-pink-400 text-white font-semibold py-2 px-4 rounded-lg text-center transition">Games</a>
+  <a href="Forums.html" class="bg-pink-300 hover:bg-pink-400 text-white font-semibold py-2 px-4 rounded-lg text-center transition">Forums</a>
+  <a href="YourClan.html" class="bg-pink-300 hover:bg-pink-400 text-white font-semibold py-2 px-4 rounded-lg text-center transition">Your Clan</a>
+</nav>
+
+
+    <article class="flex flex-col gap-3 p-4 bg-pink-200 rounded-xl shadow-md">
+      <h1>Welcome</h1>
+      <p>Your key is waiting.</p>
+      <p>
+        Join one of several cozy clans, each with its own personality and lore, and connect with other members, share art, write stories, or simply unwind.
+        Play relaxing minigames to earn coins, decorate your character, and collect limited-edition items in seasonal events.
+        Whether you’re here to roleplay, make friends, show off your fairy fashion, or just relax in a cozy digital space,
+        Moonmoss Hotel is your glowing escape into a soft, magical world.
+      </p>
+    </article>
+  </section>
+
+  <!-- Footer -->
+  <footer class="mt-12 text-sm opacity-60">© 2025 Moonmoss Hotel</footer>
+
+  </body>
+  
+
+</html>
+

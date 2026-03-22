@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Games | Moonmoss Hotel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    @font-face {
+      font-family: 'Bitcount Grid Double';
+      src: url('https://fonts.cdnfonts.com/css/bitcount-grid-double') format('woff2');
+      font-weight: normal;
+      font-style: normal;
+    }
+    
+    body {
+      background-color: #FFD1DC;
+      font-family: 'Bitcount Grid Double', serif;
+      color: #8B475D;
+      margin: 0;
+      padding: 0;
+    }
+    
+    /* Navigation */
+    .nav-bar {
+      padding: 10px;
+      background-color: #FFB6C1;
+      border-radius: 0 0 8px 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .nav-link {
+      color: #DB7093;
+      text-decoration: underline;
+      font-weight: bold;
+    }
+    
+    .nav-link:hover {
+      color: #C71585;
+      text-decoration: none;
+    }
+    
+    .coin-display {
+      background-color: #FFF0F5;
+      border: 2px solid #FF69B4;
+      border-radius: 15px;
+      padding: 5px 10px;
+      display: flex;
+      align-items: center;
+    }
+    
+    /* Main Content */
+    .games-container {
+      max-width: 1000px;
+      margin: 20px auto;
+      padding: 0 15px;
+    }
+    
+    .page-header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    
+    .page-title {
+      color: #C71585;
+      font-size: 36px;
+      text-shadow: 2px 2px 0px #FFB6C1;
+      margin-bottom: 5px;
+    }
+    
+    .page-subtitle {
+      color: #8B475D;
+      font-size: 16px;
+    }
+    
+    /* Games Grid */
+    .games-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+    
+    .game-card {
+      background-color: #FFF0F5;
+      border: 3px solid #FF69B4;
+      border-radius: 15px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 5px 5px 0px #FFB6C1;
+      transition: transform 0.3s ease;
+    }
+    
+    .game-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .game-icon {
+      font-size: 50px;
+      margin-bottom: 15px;
+    }
+    
+    .game-name {
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: #C71585;
+    }
+    
+    .game-description {
+      font-size: 14px;
+      margin-bottom: 15px;
+      color: #8B475D;
+    }
+    
+    .play-button {
+      background-color: #FF69B4;
+      color: white;
+      border: none;
+      padding: 8px 20px;
+      font-family: 'Bitcount Grid Double', serif;
+      border-radius: 8px;
+      cursor: pointer;
+      border: 2px solid #C71585;
+    }
+    
+    .play-button:hover {
+      background-color: #DB7093;
+    }
+    
+    /* Game Containers */
+    .game-container {
+      background-color: #FFF0F5;
+      border: 3px solid #FF69B4;
+      border-radius: 15px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 5px 5px 0px #FFB6C1;
+      display: none;
+    }
+    
+    .game-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 2px dotted #FF69B4;
+    }
+    
+    .game-title {
+      color: #C71585;
+      font-size: 24px;
+    }
+    
+    .back-button {
+      background-color: #FFB6C1;
+      color: #8B475D;
+      border: none;
+      padding: 5px 15px;
+      font-family: 'Bitcount Grid Double', serif;
+      border-radius: 8px;
+      cursor: pointer;
+      border: 2px solid #DB7093;
+    }
+    
+    /* Memory Game */
+    .memory-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin: 0 auto;
+      max-width: 400px;
+    }
+    
+    .memory-card {
+      height: 80px;
+      background-color: #FFB6C1;
+      border: 2px solid #DB7093;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+    
+    .memory-card.flipped {
+      background-color: #FF69B4;
+      transform: rotateY(180deg);
+    }
+    
+    /* Coin Collector */
+    .coin-collector {
+      position: relative;
+      height: 300px;
+      background-color: #FFE4E1;
+      border: 2px dashed #DB7093;
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 15px;
+    }
+    
+    .fairy {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      background-color: #FF69B4;
+      border: 2px solid #C71585;
+      border-radius: 50%;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    
+    .coin {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background-color: gold;
+      border: 2px solid orange;
+      border-radius: 50%;
+      top: -30px;
+    }
+    
+    /* Trivia Game */
+    .trivia-question {
+      font-size: 18px;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+    
+    .trivia-options {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+    
+    .trivia-option {
+      background-color: #FFB6C1;
+      border: 2px solid #DB7093;
+      border-radius: 8px;
+      padding: 10px;
+      cursor: pointer;
+      text-align: center;
+    }
+    
+    .trivia-option:hover {
+      background-color: #FF69B4;
+      color: white;
+    }
+    
+    /* Game Stats */
+    .game-stats {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 15px;
+    }
+    
+    .stat {
+      text-align: center;
+    }
+    
+    .stat-value {
+      font-size: 24px;
+      color: #C71585;
+    }
+    
+    .stat-label {
+      font-size: 14px;
+      color: #8B475D;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <div class="nav-bar">
+    <a href="index.html" class="nav-link">← Back to Home</a>
+    <div class="coin-display">
+      <span>🪙 <span id="coin-count">1,250</span> Coins</span>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="games-container">
+    <header class="page-header">
+      <h1 class="page-title">Fairy Games</h1>
+      <p class="page-subtitle">Play games to earn coins for your wardrobe!</p>
+    </header>
+
+    <!-- Games Selection Grid -->
+    <div id="games-grid" class="games-grid">
+      <!-- Memory Game -->
+      <div class="game-card">
+        <div class="game-icon">🎮</div>
+        <div class="game-name">Fairy Memory</div>
+        <div class="game-description">Match pairs of magical symbols to earn coins!</div>
+        <button class="play-button" onclick="showGame('memory-game')">Play Now</button>
+      </div>
+      
+      <!-- Coin Collector -->
+      <div class="game-card">
+        <div class="game-icon">✨</div>
+        <div class="game-name">Coin Collector</div>
+        <div class="game-description">Catch falling coins with your fairy character!</div>
+        <button class="play-button" onclick="showGame('coin-collector')">Play Now</button>
+      </div>
+      
+      <!-- Trivia Game -->
+      <div class="game-card">
+        <div class="game-icon">❓</div>
+        <div class="game-name">Fairy Trivia</div>
+        <div class="game-description">Test your knowledge of fairy lore and magic!</div>
+        <button class="play-button" onclick="showGame('trivia-game')">Play Now</button>
+      </div>
+    </div>
+
+    <!-- Memory Game -->
+    <div id="memory-game" class="game-container">
+      <div class="game-header">
+        <h2 class="game-title">Fairy Memory</h2>
+        <button class="back-button" onclick="showGamesGrid()">← Back to Games</button>
+      </div>
+      
+      <div class="game-stats">
+        <div class="stat">
+          <div class="stat-value" id="moves">0</div>
+          <div class="stat-label">Moves</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value" id="matches">0</div>
+          <div class="stat-label">Matches</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value" id="memory-score">0</div>
+          <div class="stat-label">Coins Earned</div>
+        </div>
+      </div>
+      
+      <div class="memory-grid" id="memory-board">
+        <!-- Cards will be generated by JavaScript -->
+      </div>
+    </div>
+
+    <!-- Coin Collector Game -->
+    <div id="coin-collector" class="game-container">
+      <div class="game-header">
+        <h2 class="game-title">Coin Collector</h2>
+        <button class="back-button" onclick="showGamesGrid()">← Back to Games</button>
+      </div>
+      
+      <div class="game-stats">
+        <div class="stat">
+          <div class="stat-value" id="collected-coins">0</div>
+          <div class="stat-label">Coins Collected</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value" id="missed-coins">0</div>
+          <div class="stat-label">Coins Missed</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value" id="collector-score">0</div>
+          <div class="stat-label">Total Coins</div>
+        </div>
+      </div>
+      
+      <div class="coin-collector" id="collector-game">
+        <div class="fairy" id="fairy"></div>
+        <!-- Coins will be generated by JavaScript -->
+      </div>
+      
+      <p style="text-align: center;">Use the left and right arrow keys to move your fairy and collect coins!</p>
+    </div>
+
+    <!-- Trivia Game -->
+    <div id="trivia-game" class="game-container">
+      <div class="game-header">
+        <h2 class="game-title">Fairy Trivia</h2>
+        <button class="back-button" onclick="showGamesGrid()">← Back to Games</button>
+      </div>
+      
+      <div class="game-stats">
+        <div class="stat">
+          <div class="stat-value" id="trivia-score">0</div>
+          <div class="stat-label">Score</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value" id="question-number">1/5</div>
+          <div class="stat-label">Question</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value" id="trivia-coins">0</div>
+          <div class="stat-label">Coins Earned</div>
+        </div>
+      </div>
+      
+      <div id="trivia-content">
+        <div class="trivia-question" id="trivia-question"></div>
+        <div class="trivia-options" id="trivia-options"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Global variables
+    let totalCoins = 1250;
+    
+    // Show/hide games
+    function showGame(gameId) {
+      document.getElementById('games-grid').style.display = 'none';
+      document.getElementById(gameId).style.display = 'block';
+      
+      // Initialize the selected game
+      if (gameId === 'memory-game') {
+        initMemoryGame();
+      } else if (gameId === 'coin-collector') {
+        initCoinCollector();
+      } else if (gameId === 'trivia-game') {
+        initTriviaGame();
+      }
+    }
+    
+    function showGamesGrid() {
+      document.querySelectorAll('.game-container').forEach(container => {
+        container.style.display = 'none';
+      });
+      document.getElementById('games-grid').style.display = 'grid';
+    }
+    
+    // Update coin display
+    function updateCoinDisplay() {
+      document.getElementById('coin-count').textContent = totalCoins.toLocaleString();
+    }
+    
+    // Memory Game
+    function initMemoryGame() {
+      const symbols = ['🌸', '✨', '🦋', '🍄', '🪷', '🌟', '🌙', '🦄'];
+      const cards = [...symbols, ...symbols];
+      const board = document.getElementById('memory-board');
+      board.innerHTML = '';
+      
+      // Shuffle cards
+      cards.sort(() => Math.random() - 0.5);
+      
+      // Create cards
+      cards.forEach((symbol, index) => {
+        const card = document.createElement('div');
+        card.className = 'memory-card';
+        card.dataset.symbol = symbol;
+        card.dataset.index = index;
+        card.innerHTML = '?';
+        card.addEventListener('click', flipCard);
+        board.appendChild(card);
+      });
+      
+      // Reset stats
+      document.getElementById('moves').textContent = '0';
+      document.getElementById('matches').textContent = '0';
+      document.getElementById('memory-score').textContent = '0';
+      
+      window.memoryGame = {
+        flippedCards: [],
+        matchedPairs: 0,
+        moves: 0,
+        score: 0
+      };
+    }
+    
+    function flipCard() {
+      const card = this;
+      
+      // Already flipped or matched
+      if (card.classList.contains('flipped') || memoryGame.flippedCards.length >= 2) {
+        return;
+      }
+      
+      // Flip the card
+      card.classList.add('flipped');
+      card.textContent = card.dataset.symbol;
+      memoryGame.flippedCards.push(card);
+      
+      // Check for match if two cards are flipped
+      if (memoryGame.flippedCards.length === 2) {
+        memoryGame.moves++;
+        document.getElementById('moves').textContent = memoryGame.moves;
+        
+        const [card1, card2] = memoryGame.flippedCards;
+        
+        if (card1.dataset.symbol === card2.dataset.symbol) {
+          // Match found
+          memoryGame.matchedPairs++;
+          memoryGame.score += 10;
+          document.getElementById('matches').textContent = memoryGame.matchedPairs;
+          document.getElementById('memory-score').textContent = memoryGame.score;
+          
+          memoryGame.flippedCards = [];
+          
+          // Check if all pairs are matched
+          if (memoryGame.matchedPairs === 8) {
+            setTimeout(() => {
+              alert(`Congratulations! You earned ${memoryGame.score} coins!`);
+              totalCoins += memoryGame.score;
+              updateCoinDisplay();
+            }, 500);
+          }
+        } else {
+          // No match
+          setTimeout(() => {
+            card1.classList.remove('flipped');
+            card2.classList.remove('flipped');
+            card1.textContent = '?';
+            card2.textContent = '?';
+            memoryGame.flippedCards = [];
+          }, 1000);
+        }
+      }
+    }
+    
+    // Coin Collector Game
+    function initCoinCollector() {
+      const game = document.getElementById('collector-game');
+      const fairy = document.getElementById('fairy');
+      
+      // Clear existing coins
+      const coins = document.querySelectorAll('.coin');
+      coins.forEach(coin => coin.remove());
+      
+      // Reset stats
+      document.getElementById('collected-coins').textContent = '0';
+      document.getElementById('missed-coins').textContent = '0';
+      document.getElementById('collector-score').textContent = '0';
+      
+      window.collectorGame = {
+        collected: 0,
+        missed: 0,
+        score: 0,
+        interval: null
+      };
+      
+      // Fairy movement
+      let fairyPosition = 50;
+      fairy.style.left = `${fairyPosition}%`;
+      
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft' && fairyPosition > 5) {
+          fairyPosition -= 5;
+        } else if (e.key === 'ArrowRight' && fairyPosition < 95) {
+          fairyPosition += 5;
+        }
+        fairy.style.left = `${fairyPosition}%`;
+      });
+      
+      // Generate coins
+      collectorGame.interval = setInterval(() => {
+        const coin = document.createElement('div');
+        coin.className = 'coin';
+        coin.style.left = `${Math.random() * 90 + 5}%`;
+        game.appendChild(coin);
+        
+        let coinTop = -30;
+        const coinFall = setInterval(() => {
+          coinTop += 2;
+          coin.style.top = `${coinTop}px`;
+          
+          // Check if coin is collected
+          const fairyRect = fairy.getBoundingClientRect();
+          const coinRect = coin.getBoundingClientRect();
+          
+          if (coinTop > 250) {
+            clearInterval(coinFall);
+            coin.remove();
+            collectorGame.missed++;
+            document.getElementById('missed-coins').textContent = collectorGame.missed;
+          } else if (
+            coinTop > 200 &&
+            coinRect.left < fairyRect.right &&
+            coinRect.right > fairyRect.left
+          ) {
+            clearInterval(coinFall);
+            coin.remove();
+            collectorGame.collected++;
+            collectorGame.score += 5;
+            document.getElementById('collected-coins').textContent = collectorGame.collected;
+            document.getElementById('collector-score').textContent = collectorGame.score;
+          }
+        }, 20);
+      }, 1000);
+    }
+    
+    // Trivia Game
+    function initTriviaGame() {
+      const questions = [
+        {
+          question: "What type of fairy is connected to flowers and gardens?",
+          options: ["Bloom Fairy", "Glimmer Fairy", "Frost Fairy", "Tinker Fairy"],
+          answer: 0
+        },
+        {
+          question: "What do fairies use to fly?",
+          options: ["Magic Dust", "Wings", "Levitation", "Balloons"],
+          answer: 1
+        },
+        {
+          question: "Where do fairies typically live?",
+          options: ["In cities", "In forests", "In oceans", "In mountains"],
+          answer: 1
+        },
+        {
+          question: "What is a common fairy trait?",
+          options: ["Love of technology", "Connection to nature", "Fear of magic", "Dislike of colors"],
+          answer: 1
+        },
+        {
+          question: "What do Tinker Fairies love to do?",
+          options: ["Sleep", "Build and create", "Swim", "Eat sweets"],
+          answer: 1
+        }
+      ];
+      
+      window.triviaGame = {
+        currentQuestion: 0,
+        score: 0,
+        coins: 0
+      };
+      
+      loadTriviaQuestion();
+    }
+    
+    function loadTriviaQuestion() {
+      const questions = [
+        {
+          question: "What type of fairy is connected to flowers and gardens?",
+          options: ["Bloom Fairy", "Glimmer Fairy", "Frost Fairy", "Tinker Fairy"],
+          answer: 0
+        },
+        {
+          question: "What do fairies use to fly?",
+          options: ["Magic Dust", "Wings", "Levitation", "Balloons"],
+          answer: 1
+        },
+        {
+          question: "Where do fairies typically live?",
+          options: ["In cities", "In forests", "In oceans", "In mountains"],
+          answer: 1
+        },
+        {
+          question: "What is a common fairy trait?",
+          options: ["Love of technology", "Connection to nature", "Fear of magic", "Dislike of colors"],
+          answer: 1
+        },
+        {
+          question: "What do Tinker Fairies love to do?",
+          options: ["Sleep", "Build and create", "Swim", "Eat sweets"],
+          answer: 1
+        }
+      ];
+      
+      if (triviaGame.currentQuestion >= questions.length) {
+        // Game over
+        document.getElementById('trivia-content').innerHTML = `
+          <div class="trivia-question">Game Over! Your score: ${triviaGame.score}/5</div>
+          <p style="text-align: center;">You earned ${triviaGame.coins} coins!</p>
+          <button class="play-button" onclick="initTriviaGame()">Play Again</button>
+        `;
+        totalCoins += triviaGame.coins;
+        updateCoinDisplay();
+        return;
+      }
+      
+      const question = questions[triviaGame.currentQuestion];
+      document.getElementById('question-number').textContent = `${triviaGame.currentQuestion + 1}/5`;
+      document.getElementById('trivia-question').textContent = question.question;
+      
+      const optionsContainer = document.getElementById('trivia-options');
+      optionsContainer.innerHTML = '';
+      
+      question.options.forEach((option, index) => {
+        const optionElement = document.createElement('div');
+        optionElement.className = 'trivia-option';
+        optionElement.textContent = option;
+        optionElement.addEventListener('click', () => checkTriviaAnswer(index));
+        optionsContainer.appendChild(optionElement);
+      });
+    }
+    
+    function checkTriviaAnswer(selectedIndex) {
+      const questions = [
+        { answer: 0 },
+        { answer: 1 },
+        { answer: 1 },
+        { answer: 1 },
+        { answer: 1 }
+      ];
+      
+      const question = questions[triviaGame.currentQuestion];
+      
+      if (selectedIndex === question.answer) {
+        triviaGame.score++;
+        triviaGame.coins += 20;
+        document.getElementById('trivia-score').textContent = triviaGame.score;
+        document.getElementById('trivia-coins').textContent = triviaGame.coins;
+        alert("Correct! +20 coins");
+      } else {
+        alert("Wrong answer!");
+      }
+      
+      triviaGame.currentQuestion++;
+      loadTriviaQuestion();
+    }
+    
+    // Initialize the page
+    updateCoinDisplay();
+  </script>
+
+</body>
+</html>

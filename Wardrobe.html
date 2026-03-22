@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bitcount+Grid+Double:wght@100..900&display=swap" rel="stylesheet">    <link rel="stylesheet" href="style.css">
+  <title>Wardrobe | Moonmoss Hotel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      background-color: #FFE4E1; /* Coral pink background */
+      
+      font-family: "Bitcount Grid Double", serif;
+      color: #8b3a5c; /* Dark coral text */
+      margin: 0;
+      padding: 0;
+    }
+    a {
+      color: #5c1b31; /* Coral link color */
+      text-decoration: underline;
+    }
+    a:hover {
+      color: #3d0818; /* Darker coral hover */
+      text-decoration: none;
+    }
+    .retro-box {
+      background-color: #FFF5EE; /* Seashell white */
+      border: 3px solid #992b43;
+      border-radius: 0;
+      padding: 15px;
+      margin-bottom: 20px;
+      box-shadow: 5px 5px 0px #ff7aa2; /* Light salmon shadow */
+    }
+    .retro-button {
+      background-color: #ff7ab1; /* Light salmon */
+      border: 2px solid #8b3a55;
+      padding: 8px 15px;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      font-weight: bold;
+      color: #8b3a4c;
+      cursor: pointer;
+      text-align: left;
+      width: 100%;
+      margin-bottom: 5px;
+    }
+    .retro-button:hover {
+      background-color: #ff69a3; /* Brighter coral */
+    }
+    .retro-item {
+      background-color: #FFE4E1; /* Coral pink */
+      border: 2px dashed #cd4572;
+      padding: 10px;
+      text-align: center;
+      cursor: pointer;
+    }
+    .retro-item:hover {
+      background-color: #ffb9d4; /* Peach puff */
+    }
+    .marquee {
+      background-color: #ff568e; /* Coral */
+      color: white;
+      padding: 5px;
+      font-weight: bold;
+    }
+    h1 {
+      color: #770a25; /* Orange-red */
+      text-shadow: 3px 3px 0px #FFA07A;
+    }
+    h2 {
+      color: #790f26;
+      border-bottom: 2px dotted #FFA07A;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <div style="padding: 10px; background-color: #ff7aa6;">
+    <a href="index.html" style="font-weight: bold; font-size: 14px;">← Back to Home</a>
+    <div class="marquee" style="margin-top: 5px;">
+      <marquee behavior="scroll" direction="left">Welcome to your fairy wardrobe! Mix and match to create your perfect look!</marquee>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <div style="text-align: center; margin: 20px 0;">
+    <h1 style="font-size: 36px; margin-bottom: 5px;">Closet</h1>
+    <p style="font-size: 16px; color: #8f3050;">Mix and match your fairy fashion!</p>
+  </div>
+
+  <!-- Page Layout -->
+  <div style="max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: 1fr; gap: 20px; padding: 0 15px;">
+    <div style="display: grid; grid-template-columns: 1fr; gap: 20px;">
+      <!-- For mobile -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <!-- Avatar Preview -->
+        <div class="retro-box">
+          <h2 style="font-size: 24px; padding-bottom: 5px; margin-bottom: 15px;">Your Fairy</h2>
+          <div style="width: 100%; height: 200px; background-color: #FFDAB9; border: 3px dashed #cd4567; display: flex; align-items: center; justify-content: center; margin-bottom: 15px;">
+            <span style="color: #8b3a59; font-style: italic;">[ Avatar Preview ]</span>
+          </div>
+          <p style="font-size: 14px; color: #8b3a5c;">Click an item to equip it!</p>
+
+        </div>
+
+        <!-- Category Filters -->
+        <div class="retro-box">
+          <h2 style="font-size: 24px; padding-bottom: 5px; margin-bottom: 15px;">Categories</h2>
+          <button class="retro-button">Tops</button>
+          <button class="retro-button">Wings</button>
+          <button class="retro-button">Bottoms</button>
+          <button class="retro-button">Shoes</button>
+          <button class="retro-button">Accessories</button>
+        </div>
+      </div>
+
+      <!-- Items Display -->
+      <div class="retro-box">
+        <h2 style="font-size: 24px; padding-bottom: 5px; margin-bottom: 15px;">Available Items</h2>
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;">
+          <div class="retro-item">
+            <div style="width: 80px; height: 80px; background-color: #FFB6C1; border: 2px solid #cd4572; margin: 0 auto 5px;"></div>
+            <span style="font-size: 14px; font-weight: bold;">Petal Top</span>
+          </div>
+          <div class="retro-item">
+            <div style="width: 80px; height: 80px; background-color: #FFB6C1; border: 2px solid #cd456e; margin: 0 auto 5px;"></div>
+            <span style="font-size: 14px; font-weight: bold;">Mossy Cape</span>
+          </div>
+          <div class="retro-item">
+            <div style="width: 80px; height: 80px; background-color: #FFB6C1; border: 2px solid #cd4563; margin: 0 auto 5px;"></div>
+            <span style="font-size: 14px; font-weight: bold;">Crystal Wings</span>
+          </div>
+          <div class="retro-item">
+            <div style="width: 80px; height: 80px; background-color: #FFB6C1; border: 2px solid #cd4563; margin: 0 auto 5px;"></div>
+            <span style="font-size: 14px; font-weight: bold;">Mushroom Hat</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div style="text-align: center; margin: 30px 0; font-size: 12px; color: #8B3A3A;">
+    <p>Best viewed with Netscape Navigator or Internet Explorer 6.0</p>
+    <p>© 2003 Moonmoss Hotel - All Rights Reserved</p>
+    <img src="https://web.archive.org/web/20090829092626/http://geocities.com:80/EnchantedForest/Glade/8085/undercon2.gif" alt="under construction" style="margin: 10px auto;">
+    <div style="margin-top: 10px;">
+      <img src="https://www.cutercounter.com/hits.php?id=hmxndfq&nd=6&style=1" border="0" alt="website counter">
+    </div>
+  </div>
+
+</body>
+</html>

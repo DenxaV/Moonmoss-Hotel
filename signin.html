@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login Page</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<style>
+    @font-face {
+      font-family: 'Bitcount Grid Double';
+      src: url('https://fonts.cdnfonts.com/css/bitcount-grid-double') format('woff2');
+      font-weight: normal;
+      font-style: normal;
+    }
+    
+    body {
+      background-color: #FFD1DC; /* Bubblegum pink */
+      font-family: 'Bitcount Grid Double', serif;
+      color: #8B475D; /* Dark rose */
+      margin: 0;
+      padding: 0;
+    }
+    a {
+      color: #DB7093; /* Pale violet red */
+      text-decoration: underline;
+      font-weight: bold;
+    }
+    a:hover {
+      color: #C71585; /* Medium violet red */
+      text-decoration: none;
+    }
+    .retro-box {
+      background-color: #FFF0F5; /* Lavender blush */
+      border: 3px solid #FF69B4; /* Hot pink (softer) */
+      border-radius: 15px; /* Rounded corners */
+      padding: 20px;
+      margin: 20px auto;
+      max-width: 500px;
+      box-shadow: 5px 5px 0px #FFB6C1; /* Light pink shadow */
+    }
+    h1 {
+      color: #C71585;
+      font-size: 28px;
+      text-align: center;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 0px #FFB6C1;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    input[type="text"],
+    select {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 15px;
+      border: 2px solid #FF69B4;
+      border-radius: 8px; /* Rounded corners */
+      background-color: #FFF;
+      font-family: 'Bitcount Grid Double', serif;
+    }
+       input[type="submit"] {
+      background-color: #FF69B4;
+      color: white;
+      border: none;
+      padding: 10px 25px;
+      font-family: 'Bitcount Grid Double', serif;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+      border: 2px solid #C71585;
+      border-radius: 8px; /* Rounded corners */
+      box-shadow: 3px 3px 0px #DB7093;
+      margin-top: 10px;
+    }
+    input[type="submit"]:hover {
+      background-color: #DB7093;
+    }
+    .form-section {
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 1px dotted #FFB6C1;
+    }
+    .form-section:last-child {
+      border-bottom: none;
+    }
+    .help-text {
+      font-size: 12px;
+      color: #8B475D;
+      margin-bottom: 8px;
+    }
+</style>
+<body>
+  <!-- Navigation -->
+  <div style="padding: 10px; background-color: #FFB6C1; border-radius: 0 0 8px 8px;">
+    <a href="index.html">← Back to Home</a>
+  </div>
+    <!-- Login Box -->
+  <div class="retro-box">
+    <h1>Log-on</h1>
+
+    <form action="login.php" method="post">
+
+      <!-- Name -->
+      <div class="form-section">
+        <label for="username">Name</label>
+        <input type="text" id="username" name="username" required>
+      </div>
+
+      <!-- Password -->
+      <div class="form-section">
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" required>
+      </div>
+      <!-- Submit -->
+      <div style="text-align: center;">
+        <input type="submit" value="Login">
+      </div>
+    </form>
+  </div>
+</body>

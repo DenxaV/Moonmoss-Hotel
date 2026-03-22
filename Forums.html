@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Forums | Moonmoss Hotel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    @font-face {
+      font-family: 'Bitcount Grid Double';
+      src: url('https://fonts.cdnfonts.com/css/bitcount-grid-double') format('woff2');
+      font-weight: normal;
+      font-style: normal;
+    }
+    
+    body {
+      background-color: #FFD1DC;
+      font-family: 'Bitcount Grid Double', serif;
+      color: #8B475D;
+      margin: 0;
+      padding: 0;
+    }
+    
+    /* Navigation */
+    .nav-bar {
+      padding: 10px;
+      background-color: #FFB6C1;
+      border-radius: 0 0 8px 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .nav-link {
+      color: #DB7093;
+      text-decoration: underline;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    
+    .nav-link:hover {
+      color: #C71585;
+      text-decoration: none;
+    }
+    
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 100;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.4);
+    }
+    
+    .modal-content {
+      background-color: #FFF0F5;
+      margin: 10% auto;
+      padding: 20px;
+      border: 3px solid #FF69B4;
+      border-radius: 15px;
+      width: 80%;
+      max-width: 500px;
+      box-shadow: 5px 5px 0px #FFB6C1;
+    }
+    
+    .close-btn {
+      color: #8B475D;
+      float: right;
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    
+    /* Form Styles */
+    .form-group {
+      margin-bottom: 15px;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    
+    .form-group input, .form-group textarea {
+      width: 100%;
+      padding: 8px;
+      border: 2px solid #FF69B4;
+      border-radius: 8px;
+      font-family: 'Bitcount Grid Double', serif;
+    }
+    
+    .form-submit {
+      background-color: #FF69B4;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: 'Bitcount Grid Double', serif;
+    }
+    
+    /* Main Content */
+    .forum-container {
+      max-width: 1000px;
+      margin: 20px auto;
+      padding: 0 15px;
+    }
+    
+    /* Thread List Styles */
+    .thread {
+      background-color: #FFF0F5;
+      border: 3px solid #FF69B4;
+      border-radius: 15px;
+      padding: 15px;
+      margin-bottom: 15px;
+      box-shadow: 5px 5px 0px #FFB6C1;
+      cursor: pointer;
+    }
+    
+    .thread:hover {
+      background-color: #FFE4E1;
+    }
+    
+    .thread-title {
+      font-size: 20px;
+      color: #C71585;
+      margin-bottom: 5px;
+    }
+    
+    .thread-meta {
+      font-size: 12px;
+      color: #8B475D;
+    }
+    
+    /* Post Styles */
+    .post {
+      background-color: #FFF0F5;
+      border: 2px solid #DB7093;
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 15px;
+    }
+    
+    .post-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      padding-bottom: 5px;
+      border-bottom: 1px dotted #FF69B4;
+    }
+    
+    .post-author {
+      font-weight: bold;
+      color: #C71585;
+    }
+    
+    .post-date {
+      font-size: 12px;
+      color: #8B475D;
+    }
+    
+    /* Reply Form */
+    .reply-form {
+      margin-top: 20px;
+    }
+    
+    /* Other existing styles from previous version... */
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <div class="nav-bar">
+    <a href="index.html" class="nav-link">← Back to Home</a>
+    <div>
+      <span id="loginBtn" class="nav-link">Login</span> | 
+      <span id="registerBtn" class="nav-link">Register</span>
+    </div>
+  </div>
+
+  <!-- Login Modal -->
+  <div id="loginModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" id="closeLogin">&times;</span>
+      <h2>Login</h2>
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="loginUsername">Username:</label>
+          <input type="text" id="loginUsername" required>
+        </div>
+        <div class="form-group">
+          <label for="loginPassword">Password:</label>
+          <input type="password" id="loginPassword" required>
+        </div>
+        <button type="submit" class="form-submit">Login</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Register Modal -->
+  <div id="registerModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" id="closeRegister">&times;</span>
+      <h2>Register</h2>
+      <form id="registerForm">
+        <div class="form-group">
+          <label for="regUsername">Username:</label>
+          <input type="text" id="regUsername" required>
+        </div>
+        <div class="form-group">
+          <label for="regEmail">Email:</label>
+          <input type="email" id="regEmail" required>
+        </div>
+        <div class="form-group">
+          <label for="regPassword">Password:</label>
+          <input type="password" id="regPassword" required>
+        </div>
+        <div class="form-group">
+          <label for="regConfirm">Confirm Password:</label>
+          <input type="password" id="regConfirm" required>
+        </div>
+        <button type="submit" class="form-submit">Register</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="forum-container">
+    <!-- Thread View (hidden by default) -->
+    <div id="threadView" style="display:none;">
+      <button id="backToForum" class="form-submit" style="margin-bottom:15px;">← Back to Forum</button>
+      <h2 id="threadViewTitle" style="color:#C71585;"></h2>
+      
+      <div id="postsContainer">
+        <!-- Posts will be loaded here -->
+      </div>
+      
+      <div class="reply-form">
+        <h3>Post a Reply</h3>
+        <form id="replyForm">
+          <div class="form-group">
+            <textarea id="replyContent" rows="4" required></textarea>
+          </div>
+          <button type="submit" class="form-submit">Post Reply</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Forum View (default view) -->
+    <div id="forumView">
+      <header class="page-header">
+        <h1 class="page-title">Moonmoss Forums</h1>
+        <p class="page-subtitle">Chat with fellow fairies and share your stories!</p>
+      </header>
+
+      <button id="newThreadBtn" class="form-submit" style="margin-bottom:15px;">+ New Thread</button>
+
+      <div id="threadsList">
+        <!-- Threads will be loaded here -->
+      </div>
+    </div>
+
+    <!-- New Thread Modal -->
+    <div id="newThreadModal" class="modal">
+      <div class="modal-content">
+        <span class="close-btn" id="closeNewThread">&times;</span>
+        <h2>Create New Thread</h2>
+        <form id="newThreadForm">
+          <div class="form-group">
+            <label for="threadTitle">Title:</label>
+            <input type="text" id="threadTitle" required>
+          </div>
+          <div class="form-group">
+            <label for="threadContent">Content:</label>
+            <textarea id="threadContent" rows="6" required></textarea>
+          </div>
+          <button type="submit" class="form-submit">Create Thread</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Simple "database" for demo purposes
+    let users = [];
+    let threads = [
+      {
+        id: 1,
+        title: "Welcome to Moonmoss Hotel!",
+        author: "AdminPixie",
+        date: "2023-06-15",
+        content: "Welcome all new fairies to our magical community! Please read the rules and introduce yourselves!",
+        posts: [
+          {
+            author: "AdminPixie",
+            date: "2023-06-15",
+            content: "Welcome all new fairies to our magical community! Please read the rules and introduce yourselves!"
+          },
+          {
+            author: "SparkleWings",
+            date: "2023-06-16",
+            content: "So excited to be here! I'm a Glimmer fairy who loves dancing in moonbeams ✨"
+          }
+        ]
+      },
+      {
+        id: 2,
+        title: "Best fairy outfits for summer",
+        author: "StyleSprite",
+        date: "2023-06-18",
+        content: "What are everyone's favorite outfit combinations for the warm season? I'm loving petal tops with dewdrop accessories!",
+        posts: [
+          {
+            author: "StyleSprite",
+            date: "2023-06-18",
+            content: "What are everyone's favorite outfit combinations for the warm season? I'm loving petal tops with dewdrop accessories!"
+          },
+          {
+            author: "BloomFairy",
+            date: "2023-06-19",
+            content: "I've been wearing my mushroom hat with a vine belt - perfect for shade and style!"
+          }
+        ]
+      }
+    ];
+    
+    let currentUser = null;
+    let currentThread = null;
+
+    // DOM Elements
+    const loginBtn = document.getElementById('loginBtn');
+    const registerBtn = document.getElementById('registerBtn');
+    const loginModal = document.getElementById('loginModal');
+    const registerModal = document.getElementById('registerModal');
+    const closeLogin = document.getElementById('closeLogin');
+    const closeRegister = document.getElementById('closeRegister');
+    const loginForm = document.getElementById('loginForm');
+    const registerForm = document.getElementById('registerForm');
+    const newThreadBtn = document.getElementById('newThreadBtn');
+    const newThreadModal = document.getElementById('newThreadModal');
+    const closeNewThread = document.getElementById('closeNewThread');
+    const newThreadForm = document.getElementById('newThreadForm');
+    const forumView = document.getElementById('forumView');
+    const threadView = document.getElementById('threadView');
+    const threadsList = document.getElementById('threadsList');
+    const backToForum = document.getElementById('backToForum');
+    const threadViewTitle = document.getElementById('threadViewTitle');
+    const postsContainer = document.getElementById('postsContainer');
+    const replyForm = document.getElementById('replyForm');
+
+    // Event Listeners
+    loginBtn.addEventListener('click', () => loginModal.style.display = 'block');
+    registerBtn.addEventListener('click', () => registerModal.style.display = 'block');
+    closeLogin.addEventListener('click', () => loginModal.style.display = 'none');
+    closeRegister.addEventListener('click', () => registerModal.style.display = 'none');
+    newThreadBtn.addEventListener('click', () => {
+      if (!currentUser) {
+        alert('Please login to create a thread');
+        loginModal.style.display = 'block';
+      } else {
+        newThreadModal.style.display = 'block';
+      }
+    });
+    closeNewThread.addEventListener('click', () => newThreadModal.style.display = 'none');
+    backToForum.addEventListener('click', showForumView);
+    
+    // Form Submissions
+    loginForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const username = document.getElementById('loginUsername').value;
+      const password = document.getElementById('loginPassword').value;
+      
+      // In a real app, you would verify credentials with server
+      currentUser = username;
+      alert(`Welcome back, ${username}!`);
+      loginModal.style.display = 'none';
+      updateUI();
+    });
+    
+    registerForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const username = document.getElementById('regUsername').value;
+      const email = document.getElementById('regEmail').value;
+      const password = document.getElementById('regPassword').value;
+      const confirm = document.getElementById('regConfirm').value;
+      
+      if (password !== confirm) {
+        alert('Passwords do not match!');
+        return;
+      }
+      
+      // In a real app, you would register with server
+      users.push({ username, email, password });
+      currentUser = username;
+      alert(`Welcome to Moonmoss, ${username}!`);
+      registerModal.style.display = 'none';
+      updateUI();
+    });
+    
+    newThreadForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const title = document.getElementById('threadTitle').value;
+      const content = document.getElementById('threadContent').value;
+      
+      const newThread = {
+        id: threads.length + 1,
+        title,
+        author: currentUser,
+        date: new Date().toISOString().split('T')[0],
+        content,
+        posts: [{
+          author: currentUser,
+          date: new Date().toISOString().split('T')[0],
+          content
+        }]
+      };
+      
+      threads.unshift(newThread);
+      newThreadModal.style.display = 'none';
+      newThreadForm.reset();
+      loadThreads();
+    });
+    
+    replyForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (!currentUser) {
+        alert('Please login to post a reply');
+        loginModal.style.display = 'block';
+        return;
+      }
+      
+      const content = document.getElementById('replyContent').value;
+      const newPost = {
+        author: currentUser,
+        date: new Date().toISOString().split('T')[0],
+        content
+      };
+      
+      currentThread.posts.push(newPost);
+      loadThread(currentThread);
+      document.getElementById('replyContent').value = '';
+    });
+
+    // UI Functions
+    function updateUI() {
+      if (currentUser) {
+        loginBtn.textContent = currentUser;
+        registerBtn.textContent = 'Logout';
+        registerBtn.onclick = logout;
+      } else {
+        loginBtn.textContent = 'Login';
+        registerBtn.textContent = 'Register';
+        registerBtn.onclick = () => registerModal.style.display = 'block';
+      }
+    }
+    
+    function logout() {
+      currentUser = null;
+      updateUI();
+    }
+    
+    function showForumView() {
+      forumView.style.display = 'block';
+      threadView.style.display = 'none';
+      loadThreads();
+    }
+    
+    function showThreadView(thread) {
+      forumView.style.display = 'none';
+      threadView.style.display = 'block';
+      currentThread = thread;
+      loadThread(thread);
+    }
+    
+    function loadThreads() {
+      threadsList.innerHTML = '';
+      threads.forEach(thread => {
+        const threadEl = document.createElement('div');
+        threadEl.className = 'thread';
+        threadEl.innerHTML = `
+          <div class="thread-title">${thread.title}</div>
+          <div class="thread-meta">Started by ${thread.author} on ${thread.date} • ${thread.posts.length} replies</div>
+        `;
+        threadEl.addEventListener('click', () => showThreadView(thread));
+        threadsList.appendChild(threadEl);
+      });
+    }
+    
+    function loadThread(thread) {
+      threadViewTitle.textContent = thread.title;
+      postsContainer.innerHTML = '';
+      
+      thread.posts.forEach(post => {
+        const postEl = document.createElement('div');
+        postEl.className = 'post';
+        postEl.innerHTML = `
+          <div class="post-header">
+            <span class="post-author">${post.author}</span>
+            <span class="post-date">${post.date}</span>
+          </div>
+          <div class="post-content">${post.content}</div>
+        `;
+        postsContainer.appendChild(postEl);
+      });
+    }
+
+    // Initialize
+    loadThreads();
+    updateUI();
+  </script>
+</body>
+</html>
